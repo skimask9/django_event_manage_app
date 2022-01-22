@@ -1,0 +1,33 @@
+{% extends 'events/layout.html' %}
+
+{% block title %}
+Login - {{ block.super }}
+{% endblock title %}
+
+{% block content  %} 
+<center>
+ <h1>Login</h1>
+    <hr><br>
+</center>
+<center>
+<div class="shadow p-4 mb-5 bg-body-rounded">
+<div class="form-center">
+  
+    <form action="" method=POST>
+        {% csrf_token %}    
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="username" id="floatingInput" placeholder = "User Name" >
+            <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control"  name="password" id="floatingPassword" placeholder = "Password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <center>
+        <input type="submit" value="Submit" class="btn btn-outline-secondary btn-sm">
+    </center>
+    </form>
+<div/>
+<div/>
+</center>
+{% endblock content  %}

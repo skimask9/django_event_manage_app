@@ -1,0 +1,30 @@
+{% extends 'events/layout.html' %}
+{% block title %}
+Venues - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+
+<center>
+  <h1>Venues</h1>
+</center>
+<hr><br />
+<table class="table bordered ">
+  {% for venue in venue_list %}
+  <tr>
+    <td class="each">
+      <a class="text" href="{% url 'show-venue' venue.id %}">{{venue.name}}</a>
+    </td>
+    {% if user.is_authenticated %}
+      {% if user.id == venue.owner or user.is_superuser %}
+        <td class="each-right">
+          <a class="btn btn-outline-secondary btn-sm" href=" {% url 'update-venue' venue.id %}">Edit</a>
+          <a class="btn btn-outline-danger btn-sm" href=" {% url 'delete-venue' venue.id %}">Delete</a>
+          <a class="btn btn-outline-primary btn-sm" href="{% url 'venue-text' venue.id%}">Download venue.docx</a>
+        </td>
+      {% endif %}
+    {% endif %}
+  </tr>
+  {% endfor %}
+</table>
+{% endblock content %}

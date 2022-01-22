@@ -1,0 +1,23 @@
+{% extends 'events/layout.html' %}
+
+{% block content %}
+<center>
+    <h1>Download Center</h1>
+</center>
+<hr><br />
+<table class="table table-borderless ">
+    <tr>
+        <td class="each">
+            <h3>Pdfs ---- </h3>
+        </td>
+        <td class="each-right">
+            <a href="{% url 'create-pdf' %}" class="btn btn-outline-secondary btn-sm">PDF</a>
+            <a href="{% url 'pdf_view' %}" class="btn btn-outline-secondary btn-sm">PDF view</a>
+            <a href="{% url 'pdf_download' %}" class="btn btn-outline-secondary btn-sm">PDF down</a>
+            <a href="{% url 'liq-down' %}" class="btn btn-outline-secondary btn-sm">csv liq</a>
+            <a href="{% url 'pdf-test' %}" class="btn btn-outline-info btn-sm">pdf test</a>
+        </td>
+    <tr />
+<table/>
+
+{% endblock content %}

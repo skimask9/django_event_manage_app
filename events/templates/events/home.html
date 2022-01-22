@@ -1,0 +1,35 @@
+{% extends 'events/layout.html' %}
+
+{% block content %}
+    <center>
+    <h1>Hello {{user.username}} !</h1>
+    <hr><br>
+    Events for :    
+    {{month_dict}} <br/>
+    {{year_dict}}
+        as of : {{time}}
+    <p>{{cal|safe}}</p>
+    <br><hr>
+    <h2>Events this month :</h2>
+    {% if event_list %}
+        {% for events_list in event_list %}
+        <div class="card">
+            <div class="card-header">
+              {{events_list.name}}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"><strong>Venue: </strong> <small>{{events_list.venue.name}}</small></h5>
+              <p class="card-text">
+                <strong>Date: </strong> <small>{{events_list.event_date}}</small><br />
+                <strong>Venue Web-Site: </strong> <small><a class="text" href="{{events_list.venue.web}}">Link</small></a><br />
+                <strong>Venue Phone: </strong> <small>{{events_list.venue.phone}}</small><br />
+                <strong>Manager: </strong> <small>{{events_list.manager}}</small><br />
+                <strong>Description: </strong> <small>{{events_list.description}}</small><br />
+              </p>
+            </div>
+        {% endfor %}
+    {% else %}
+    <h1>Sorry .. There are no events this month!</h1>
+    {% endif %}
+    </center>
+{% endblock content %}

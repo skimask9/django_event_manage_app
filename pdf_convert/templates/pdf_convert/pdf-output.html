@@ -1,0 +1,63 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF output</title>
+    <style>
+        @page {
+            size: A4    ;
+            margin: 2.5cm 1.5cm 3.5cm 1.5cm;
+            @top-center {
+                content: "VENUES";
+            }
+            @top-left {
+                content: url("https://scalebranding.com/wp-content/uploads/2020/09/Taurus-Bull-Logo-150x150.jpg");
+                opacity: 0.6;
+            }
+            @bottom-right {
+                content: "Page " counter(page)" of " counter(pages);
+            }
+            @bottom-left {
+                content: "Signup here _________";
+            }
+        }
+    </style>
+    <br><br><br>
+
+</head>
+
+<body>
+    <h2 style="color:red">Venues List</h2>
+
+    <table style="border: 2px solid black; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid black; padding: 2px;">№</th>
+                <th style="border: 1px solid black; padding: 2px;">Name</th>
+                <th style="border: 1px solid black; padding: 2px;">Address</th>
+                <th style="border: 1px solid black; padding: 2px;">Zip-</th>
+                <th style="border: 1px solid black; padding: 2px;">Phone</th>
+                <th style="border: 1px solid black; padding: 2px;">Email</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            {% for venue in venues %}
+            <tr>
+                <td style="border: 1px solid black; padding: 2px;">{{forloop.counter}}</td>
+                <td style="border: 1px solid black; padding: 2px;">{{venue.name}}</td>
+                <td style="border: 1px solid black; padding: 2px;">{{venue.address}}</td>
+                <td style="border: 1px solid black; padding: 2px;">{{venue.zip_code}}</td>
+                <td style="border: 1px solid black; padding: 2px;">{{venue.phone}}</td>
+                <td style="border: 1px solid black; padding: 2px; color: royalblue;">{{venue.email_adress}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br> Total : {{total}}
+</body>
+
+</html>

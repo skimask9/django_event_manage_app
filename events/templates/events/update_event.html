@@ -1,0 +1,53 @@
+{% extends 'events/layout.html' %}
+
+{% block title %}
+Update Event - {{ block.super }}
+{% endblock title %}
+{% block content %}
+<a class="btn-close btn-lg" href=" {% url 'list-events'  %}" aria-label="Close"></a>
+{% if user == event.manager or user.is_superuser %}
+<center>
+    <h1>Update Event</h1>
+    <hr><br />
+    <div class="d-flex justify-content-center">
+        <div class="updatevenue">   
+            <form action="" method=POST>
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    {{form.name}}
+                    <label for="floatingInput">Event Name</label>
+                </div>
+                <br />
+                <div class="form-floating mb-3">
+                    {{form.event_date}}
+                    <label for="floatingInput">Date</label>
+                </div>
+                <br />
+                <div class="form-floating">
+                    {{form.venue}}
+                    <label for="floatingSelect">Select Venue*</label>
+                </div>
+                <br />
+                <div class="form-floating">
+                    {{form.manager}}
+                    <label for="floatingSelect">Select Manager*</label>
+                </div>
+                <br />
+                <div class="form-floating">
+                    {{form.description}}
+                    <label for="floatingTextarea2">Description</label>
+                </div>
+                <br />
+                {% for f in form  %}
+                <div class="form-error">{{f.errors}}</div>
+                {% endfor %}
+                <br />
+                <input type="submit" value="Update" class="btn btn-outline btn-secondary">
+            </form>
+            <div />
+            <div />
+</center>
+{% else %}
+    <h1>Not Allowed Here!</h1>
+{% endif %}
+{% endblock content %}

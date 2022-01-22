@@ -1,0 +1,23 @@
+{% extends 'events/layout.html' %}
+
+{% block title %}
+    Delete - {{ block.super }}
+{% endblock title %}
+
+{% block content  %}
+{% if user.id == venue.owner  or user.is_superuser%}
+<center>
+   <h1> Delete {{venue.name}}?</h1>
+   <br>
+   <form action="" method=POST>
+       {% csrf_token %}
+       <input type="submit" class="btn btn-outline-danger" value = "Yes">
+       <a class="btn btn-outline-info" href=" {% url 'list-venues'  %}">Back</a>
+   </form>
+</center>
+{% else %}
+<center>
+    <h1>Not Allowed here!</h1>
+</center>
+{% endif %}
+{% endblock content  %}

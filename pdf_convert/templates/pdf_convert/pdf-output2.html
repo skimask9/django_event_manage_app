@@ -1,0 +1,62 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF output</title>
+    <style>
+        @page {
+            size: A3;
+            margin: 2.5cm 1.5cm 3.5cm 1.5cm;
+            @top-center {
+                content: "EVENTS";
+            }
+            @top-left {
+                content: url("https://scalebranding.com/wp-content/uploads/2020/09/Taurus-Bull-Logo-150x150.jpg");
+            }
+            @bottom-right {
+                content: "Page " counter(page)" of " counter(pages);
+            }
+            @bottom-left {
+                content: "Signup here _________";
+            }
+        }
+    </style>
+    <br><br><br>
+
+</head>
+
+<body>
+    <h2 style="color:red">Events List</h2>
+
+    <table style="border: 2px solid black; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid black; padding: 10px;">№</th>
+                <th style="border: 1px solid black; padding: 10px;">Name</th>
+                <th style="border: 1px solid black; padding: 10px;">Date</th>
+                <th style="border: 1px solid black; padding: 10px;">Venue</th>
+                <th style="border: 1px solid black; padding: 10px;">Manager</th>
+                <th style="border: 1px solid black; padding: 10px;">Description</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td style="border: 1px solid black; padding: 10px;">{{forloop.counter}}</td>
+                <td style="border: 1px solid black; padding: 10px;">{{event.name}}</td>
+                <td style="border: 1px solid black; padding: 10px; color: royalblue;">{{event.event_date}}</td>
+                <td style="border: 1px solid black; padding: 10px;">{{event.venue}}</td>
+                <td style="border: 1px solid black; padding: 10px; color: springgreen ">{{event.manager}}</td>
+                <td style="border: 1px solid black; padding: 10px;">{{event.description}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br> Total : {{total}}
+</body>
+
+</html>

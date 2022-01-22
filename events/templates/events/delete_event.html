@@ -1,0 +1,21 @@
+{% extends 'events/layout.html' %}
+
+{% block title %}
+    Delete - {{ block.super }}
+{% endblock title %}
+
+{% block content  %}
+{% if user == event.manager or user.is_superuser %}
+<center>
+   <h1> Delete {{event.name}}?</h1>
+   <br>
+   <form action="" method=POST>
+       {% csrf_token %}
+       <input type="submit" class="btn btn-outline-danger" value = "Yes">
+       <a class="btn btn-outline-info" href=" {% url 'list-events'  %}">Back</a>
+   </form>
+</center>
+{% else %}
+    <h1>Not Allowed here!</h1>
+{% endif %}
+{% endblock content  %}

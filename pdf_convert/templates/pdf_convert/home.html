@@ -1,0 +1,10 @@
+{% extends 'events/layout.html' %}
+
+{% block content %}
+<center>
+    <h1>Hello {{user.username}}!</h1>
+    <br><hr>
+    <p>{{cal|safe}}</p>
+    <br><hr>
+</center>
+{% endblock content %}

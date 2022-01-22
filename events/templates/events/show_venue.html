@@ -1,0 +1,35 @@
+{% extends 'events/layout.html' %}
+
+{% block content %}
+<a class="btn-close btn-lg" href=" {% url 'list-venues'  %}" aria-label="Close"></a>
+<br>
+
+<br>
+<div class="d-flex justify-content-center">
+    <div class="card" style="width: 60rem;">
+      <div class="card-header">
+        <strong>Venue: </strong> <small>{{venue.name}}</small>
+      </div>
+      {% if venue.venue_image %}
+      <img src="{{venue.venue_image.url}}" class="card-img-top">
+      {% else %}
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png"
+        style="width:200px; opacity:0.5;" alt="no image">
+      {% endif %}
+      <div class="card-body">
+        <p class="card-text"><strong>Address: </strong> <small>{{venue.address}}</small><br />
+          <strong>Venue Web-Site: </strong> <small><a class="text" href='{{venue.web}}'>Link</a></small><br />
+          <strong>Venue Phone: </strong> <small>{{venue.phone}}</small><br />
+          <strong>Zip Code: </strong> <small>{{venue.zip_code}}</small><br />
+          <strong>Email: </strong> <small>{{venue.email}}</small><br />
+          <strong>Owner: </strong> <small>{{venue_owner}}</small><br />
+        </p>
+      </div>
+    </div>
+  </div>
+  <br /><br />
+  <span id='t1'>Hover over me!</span>
+<div id='t2'>I will show on hover</div>
+
+{% endblock content %}

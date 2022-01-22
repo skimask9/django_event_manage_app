@@ -1,0 +1,61 @@
+{% extends 'events/layout.html' %}
+
+{% block title %}
+Register - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+{% if form.errors %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>There was an error with form!</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+<center>
+    <h1>Register</h1>
+    <hr><br>
+    <div class="shadow p-4 mb-5 bg-body-rounded">
+        <div class="form-center">
+            <form action=" {% url 'register-user' %} " method=POST>
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    {{form.username}}
+                    <label for="floatingInput">Username</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    {{form.first_name}}
+                    <label for="floatingInput">First Name</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    {{form.last_name}}
+                    <label for="floatingInput">Last Name</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    {{form.email}}
+                    <label for="floatingInput">Email </label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    {{form.password1}}
+                    <label for="floatingInput">Password </label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{form.password2}}
+                    <label for="floatingInput">Password Confirmation </label>
+                </div>
+                {% for f in form  %}
+                <div class="form-error">{{f.errors}}</div>
+                {% endfor %}
+                <center>
+                    <input type="submit" value="Submit" class="btn btn-outline-secondary btn-sm">
+                </center>
+            </form>
+            <br>
+            <a  class ="text" href=" {% url 'login' %} ">Already have an account? Login here</a>
+        </div>
+    </div>
+</center>
+{% endblock content %}

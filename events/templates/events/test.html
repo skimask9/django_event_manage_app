@@ -1,0 +1,30 @@
+{% extends 'events/layout.html' %}
+
+{% block content  %}
+
+<center>
+    <h1>Test</h1>
+    <form action=" {% url 'test' %} " method = POST >
+        {% csrf_token %}
+    <div class="class col">
+        <input  autofocus type="text" placeholder="Name" name="name"  class="form-control">
+    </div>
+    <div class="class col">
+        <input autofocus type="text" placeholder="Description" name = "description" class="form-control " >
+    </div>
+    <div class="class col">
+      <select name="venue" class="form-select" >
+          {% for venue in venues %}
+          <option value={{venue}}> 
+                {{venue.name}}
+          </option>
+          {% endfor %}
+      </select>
+      <br/>
+      <button class="class btn btn-primary" type="submit">Submit</button>
+    </div>
+    </form>
+    
+</center>
+
+{% endblock content  %}

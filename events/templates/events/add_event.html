@@ -1,0 +1,52 @@
+{% extends 'events/layout.html' %}
+
+
+{% block title %}
+Add Event - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+<a class="btn-close btn-lg" href=" {% url 'list-events'  %}" aria-label="Close"></a>
+{% if user.is_authenticated %}
+<center>
+    <h1>Add Event To Database</h1>
+    <hr><br />
+    <div class="d-flex justify-content-center">
+        <div class="updatevenue">
+            <form action="" method=POST>
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    {{form.name}}
+                    <label for="floatingInput">Event Name</label>
+                </div>
+                <br />
+                <div class="form-floating mb-3">
+                    {{form.event_date}}
+                    <label for="floatingInput">Date</label>
+                </div>
+                <br />
+                <div class="form-floating">
+                    {{form.venue}}
+                    <label for="floatingSelect">Venue*</label>
+                </div>
+                <br />  
+                <div class="form-floating">
+                    {{form.manager}}
+                    <label for="floatingSelect">Manager*</label>
+                </div>
+                <br />
+                <div class="form-floating">
+                    {{form.description}}
+                    <label for="floatingTextarea">Description</label>
+                </div>
+                <br />
+                {% for f in form  %}
+                <div class="form-error">{{f.errors}}</div>
+                {% endfor %}
+                <input type="submit" value="Submit" class="btn btn-outline-secondary">
+            </form>
+            <div />
+        </div>
+</center>
+{% endif %}
+{% endblock %}

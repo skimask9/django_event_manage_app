@@ -1,0 +1,101 @@
+{% extends 'events/layout.html' %}
+{% block title %}
+Events - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+{% if form.errors %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>There was an error with form!</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+<center>
+  <h1>Events</h1>
+</center>
+<hr><br />
+{% for event in events  %}
+<div class="card">
+  <div class="card-header">
+    {{event.name}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><strong>Venue: </strong> <small>{{event.venue.name}}</small></h5>
+    <p class="card-text">
+      <strong>Date: </strong> <small>{{event.event_date}}</small><br />
+      <strong>Venue Web-Site: </strong> <small><a class="text" href="{{event.venue.web}}">Link</small></a><br />
+      <strong>Venue Phone: </strong> <small>{{event.venue.phone}}</small><br />
+      <strong>Manager: </strong> <small>{{event.manager}}</small><br />
+      <strong>Description: </strong> <small>{{event.description}}</small><br />
+    </p>
+  </div>
+  {% if user.is_authenticated %}
+    {% if user == event.manager or user.is_superuser %}
+      <div class="card-footer text-muted">
+        <div class="delete-end">
+          <a href=" {% url 'update-event' event.id %} " class="btn2 btn btn-outline-secondary btn-sm">Edit</a>
+          <button type="button" class="btn1 btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Delete
+          </button>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <form action="{% url 'list-events' event.id %}" method=POST>
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-outline-danger" value = "Yes">
+                        <a class="btn btn-outline-info" href=" {% url 'list-events'  %}">No</a>
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+       {% endif %}
+  {% endif %}
+</div>
+<br /><br />
+{% endfor %}
+<hr><br /><br /><br><br><br><br><br><br><br><br><br><br><br>
+
+
+<nav aria-label="Page navigation example">
+  <center>
+    <ul class="pagination pagination-sm justify-content-center">
+
+
+      {% if events.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1">&laquo&laquo</a>
+        <li />
+      <li class="page-item">
+        <a class="page-link" href="?page={{events.previous_page_number}}">&laquo</a>
+        <li />
+
+        {% endif %}
+      <li class="page-item disabled"> <a class="page-link" href="?page=#">Page {{events.number}} of
+          {{events.paginator.num_pages}}<a />
+          <li />
+          {% if events.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{events.next_page_number}}">&raquo</a>
+        <li />
+      <li class="page-item">
+        <a class="page-link" href="?page={{events.paginator.num_pages}}">&raquo&raquo</a>
+        <li />
+
+        {% endif %}
+
+    </ul>
+  </center>
+</nav>
+
+
+{% endblock content %}
