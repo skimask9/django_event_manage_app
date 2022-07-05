@@ -67,7 +67,7 @@ class EventFormAdmin(ModelForm):
             'manager': forms.Select(attrs={'type':'select','class':'form-select'}),
             'description': forms.Textarea(attrs={'class':'form-control','placeholder' : 'Description', 'style': "height: 200px"}),
         }
-       
+        
     def clean_venue(self):
         venue = self.cleaned_data['venue']
         if venue == None :
