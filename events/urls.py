@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
 
 
@@ -29,5 +29,6 @@ urlpatterns = [
     path('venue_text/<venue_id>', views.venue_text, name='venue-text'),
     path('venue_csv', views.venue_csv, name='venue-csv'),
     path('my_events', views.my_events, name='my-events'),
+    path('__debug__/', include('debug_toolbar.urls')),
     #path('venue_pdf', views.venue_pdf, name='venue-pdf'),
 ]

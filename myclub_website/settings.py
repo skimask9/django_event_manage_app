@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [ ]
 # Application definition
 
 INSTALLED_APPS = [
+    'debug_toolbar',
     'members',
     'pdf_convert.apps.PdfConvertConfig',
     'events',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,6 +56,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'myclub_website.urls'
+
+INTERNAL_IPS = ('127.0.0.1', '192.168.0.1',)
+
+
 
 TEMPLATES = [
     {

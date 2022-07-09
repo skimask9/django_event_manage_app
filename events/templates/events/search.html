@@ -35,7 +35,7 @@ Search - {{ block.super }}
     {% for venue in venues  %}
     <tr>
       <td class="each">
-        <a class="text" href="{% url 'show-venue' venue.id %}">{{venue}} </a>
+        <a class="text" href="{% url 'show-venue' venue.id %}">{{venue.name}} </a>
       </td>
     </tr>
     {% endfor %}

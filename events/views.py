@@ -1,5 +1,5 @@
 import re
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
@@ -29,9 +29,10 @@ from django.core.paginator import Paginator
 def all_events(request):
     #event_list = Event.objects.all().order_by('-event_date')
     #event_list = Event.objects.all()
-    p = Paginator(Event.objects.all(), 3)
+    p = Paginator(Event.objects.select_related("venue","manager"), 3)
     page = request.GET.get('page')
     events = p.get_page(page)
+    print(events)
     return render (request, 'events/event_list.html',{
         #"event_list": event_list,
         'events' : events ,
@@ -208,7 +209,7 @@ def update_venue(request, venue_id):
 #<-------UPDATE EVENT FORM---------->
 @login_required
 def update_event(request, event_id):
-    event = Event.objects.get(pk=event_id)
+    event = get_object_or_404(Event.objects.select_related("venue","manager"),pk=event_id)
     form = EventForm(request.POST or None, instance=event)
     if form.is_valid():
         form.save()
@@ -223,7 +224,7 @@ def update_event(request, event_id):
 @login_required
 def my_events(request):
     user = request.user.id
-    events = Event.objects.filter(manager=user)
+    events = Event.objects.filter(manager=user).select_related("venue","manager")
     return render (request, 'events/my_events.html',{
         'events': events
     })
@@ -254,7 +255,7 @@ def add_venue(request):
 
 #<-------ALL VENUES LIST--------->
 def list_venues(request):
-    venue_list = Venue.objects.all().order_by('name')
+    venue_list = Venue.objects.values("id","name","owner").order_by('name')
     return render (request , 'events/venue.html',{
         'venue_list' : venue_list,
     })
@@ -310,8 +311,8 @@ def delete_venue(request, venue_id):
 def search(request):
     if request.method == 'POST':    
         searched = request.POST['searched']
-        venues = Venue.objects.filter(name__contains = searched)
-        events = Event.objects.filter(name__contains = searched)
+        venues = Venue.objects.values("id","name","owner").filter(name__contains = searched)
+        events = Event.objects.select_related("venue","manager").filter(name__contains = searched)
         return render(request, 'events/search.html',{
             'searched' : searched,
             'venues' : venues,
